@@ -22,6 +22,10 @@ export const TimeDisplay = () => {
 
   return (
     <>
+      <p>Rounds: {counter.rounds}</p>
+      <p>
+        Phase: <b>{counter.phase}</b>
+      </p>
       <span>{displayTime(counter.timeLeft)}</span>
     </>
   );
