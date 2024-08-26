@@ -15,6 +15,9 @@ type TimeLeftCounter = { type: CounterActions.COUNT_TIME_LEFT };
 type ICounterActions = StartCounter | PauseCounter | ResetCounter | TimeLeftCounter;
 
 const handleSwitchPhase = (state: ICounter): ICounter => {
+  if (state.phase === CounterPhase.PREPARE) {
+    return { ...state, phase: CounterPhase.WORK, timeLeft: state.workTime };
+  }
   if (state.phase === CounterPhase.WORK) {
     return { ...state, phase: CounterPhase.REST, timeLeft: state.restTime };
   }
@@ -28,7 +31,7 @@ const handleTimeLeft = (state: ICounter): ICounter => {
   const hasTimeLeft = state.timeLeft > 0;
   if (!hasTimeLeft && state.rounds === 0 && state.phase === CounterPhase.REST) {
     alert("All rounds completed");
-    return { ...state, phase: CounterPhase.FINISHED };
+    return { ...state, status: CounterStatus.IDLE, phase: CounterPhase.FINISHED };
   }
 
   if (!hasTimeLeft) {
@@ -39,8 +42,9 @@ const handleTimeLeft = (state: ICounter): ICounter => {
 };
 
 const startOrResume = (state: ICounter): Pick<ICounter, "phase" | "timeLeft"> => {
-  const timeLeft = state.status === CounterStatus.PAUSED ? state.timeLeft : initialData.workTime;
-  const phase = state.status === CounterStatus.PAUSED ? state.phase : CounterPhase.WORK;
+  const isPaused = state.status === CounterStatus.PAUSED;
+  const timeLeft = isPaused ? state.timeLeft : initialData.prepareTime;
+  const phase = isPaused ? state.phase : CounterPhase.PREPARE;
   return { timeLeft, phase };
 };
 

@@ -2,7 +2,6 @@ export enum CounterStatus {
   IDLE = "idle",
   RUNNING = "running",
   PAUSED = "paused",
-  PREPARE = "prepare",
 }
 
 export enum CounterPhase {
