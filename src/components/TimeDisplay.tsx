@@ -3,9 +3,9 @@ import { useInterval } from "@/hooks/useInterval.ts";
 import { CounterActions } from "@/types.ts";
 
 const toTime = (ms: number) => {
-  const minutes = Math.floor(ms / 100 / 60);
+  const hours = Math.floor(ms / 100 / 60 / 60);
+  const minutes = Math.floor((ms / 100 / 60) % 60);
   const seconds = Math.floor((ms / 100) % 60);
-  const hours = Math.floor(minutes / 60);
   return { hours, minutes, seconds };
 };
 

@@ -11,8 +11,9 @@ type StartCounter = { type: CounterActions.START };
 type PauseCounter = { type: CounterActions.PAUSE };
 type ResetCounter = { type: CounterActions.RESET; payload: { timeLeft: number } };
 type TimeLeftCounter = { type: CounterActions.COUNT_TIME_LEFT };
+type SetCounter = { type: CounterActions.SET; payload: Partial<ICounter> };
 
-type ICounterActions = StartCounter | PauseCounter | ResetCounter | TimeLeftCounter;
+type ICounterActions = StartCounter | PauseCounter | ResetCounter | TimeLeftCounter | SetCounter;
 
 const handleSwitchPhase = (state: ICounter): ICounter => {
   if (state.phase === CounterPhase.PREPARE) {
@@ -50,14 +51,16 @@ const startOrResume = (state: ICounter): Pick<ICounter, "phase" | "timeLeft"> =>
 
 const counterReducer: Reducer<ICounter, ICounterActions> = (state, action) => {
   switch (action.type) {
-    case "START":
+    case CounterActions.START:
       return { ...state, status: CounterStatus.RUNNING, ...startOrResume(state) };
-    case "PAUSE":
+    case CounterActions.PAUSE:
       return state.status === CounterStatus.RUNNING ? { ...state, status: CounterStatus.PAUSED } : state;
-    case "RESET":
+    case CounterActions.RESET:
       return { ...state, status: CounterStatus.IDLE, timeLeft: initialData.prepareTime, phase: CounterPhase.IDLE, rounds: initialData.rounds };
-    case "COUNT_TIME_LEFT":
+    case CounterActions.COUNT_TIME_LEFT:
       return handleTimeLeft(state);
+    case CounterActions.SET:
+      return { ...state, ...action.payload };
     default:
       throw new Error("Invalid action");
   }
