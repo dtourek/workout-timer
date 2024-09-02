@@ -1,5 +1,5 @@
 import { IField } from "@/components/set-time/interface.ts";
-import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/Form.tsx";
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/Form.tsx";
 import { Input } from "@/components/ui/Input.tsx";
 import { Slider } from "@/components/ui/Slider.tsx";
 import { FieldValues, Path, UseFormReturn } from "react-hook-form";
@@ -28,15 +28,14 @@ export const Fields = <T extends FieldValues>({ fields, control }: IFieldsProps<
               <FormControl>
                 <Slider
                   step={1}
-                  defaultValue={[field.value]}
                   min={formField.min}
                   max={formField.max}
-                  onChange={(event) => {
-                    field.onChange([Number((event.target as HTMLInputElement).value)]);
+                  value={[field.value]}
+                  onValueChange={(value) => {
+                    field.onChange(value);
                   }}
                 />
               </FormControl>
-              <FormDescription>Set hours</FormDescription>
               <FormMessage />
             </FormItem>
           )}

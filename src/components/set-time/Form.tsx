@@ -1,6 +1,7 @@
 import { Fields } from "@/components/set-time/Fields.tsx";
 import { IField } from "@/components/set-time/interface.ts";
 import { formSchema, IFormValues } from "@/lib/model.ts";
+import { msToTime } from "@/lib/time.ts";
 import { memo } from "react";
 import { Button } from "@/components/ui/Button.tsx";
 import { useCounter } from "@/hooks/useCounter.tsx";
@@ -20,21 +21,28 @@ const fields: IField[] = [
   { name: "seconds", type: "number", label: "Seconds", min: 0, max: 59 },
 ];
 
+const getPhase = (phase: IEditablePhases): "prepareTime" | "workTime" | "restTime" => {
+  if (phase === CounterPhase.WORK) {
+    return "workTime";
+  }
+  if (phase === CounterPhase.REST) {
+    return "restTime";
+  }
+  return "prepareTime";
+};
+
 export const SetTimeForm = memo(({ editingPhase, handleSetTime }: ISetTimeProps) => {
-  const { dispatch } = useCounter();
+  const { dispatch, counter } = useCounter();
+  const phase = getPhase(editingPhase);
+  const time = msToTime(counter[phase]);
   const form = useForm<IFormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      seconds: 0,
-      minutes: 0,
-      hours: 0,
-    },
+    values: time,
   });
 
   const onSubmit = (values: IFormValues) => {
     const toTimeLeft: number = ((values.hours ?? 0) * 3600 + (values.minutes ?? 0) * 60 + values.seconds) * 100;
-    const phase = editingPhase === CounterPhase.WORK ? "workTime" : CounterPhase.REST ? "restTime" : "prepareTime";
-    dispatch({ type: CounterActions.SET, payload: { [phase]: toTimeLeft } });
+    dispatch({ type: CounterActions.SET, payload: { [phase]: toTimeLeft, timeLeft: phase === "prepareTime" ? toTimeLeft : counter.timeLeft } });
     handleSetTime();
   };
 

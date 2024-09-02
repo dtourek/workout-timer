@@ -44,7 +44,7 @@ const handleTimeLeft = (state: ICounter): ICounter => {
 
 const startOrResume = (state: ICounter): Pick<ICounter, "phase" | "timeLeft"> => {
   const isPaused = state.status === CounterStatus.PAUSED;
-  const timeLeft = isPaused ? state.timeLeft : initialData.prepareTime;
+  const timeLeft = isPaused ? state.timeLeft : state.prepareTime;
   const phase = isPaused ? state.phase : CounterPhase.PREPARE;
   return { timeLeft, phase };
 };

@@ -1,18 +1,12 @@
 import { useCounter } from "@/hooks/useCounter.tsx";
 import { useInterval } from "@/hooks/useInterval.ts";
+import { msToTime } from "@/lib/time.ts";
 import { CounterActions } from "@/types.ts";
-
-const toTime = (ms: number) => {
-  const hours = Math.floor(ms / 100 / 60 / 60);
-  const minutes = Math.floor((ms / 100 / 60) % 60);
-  const seconds = Math.floor((ms / 100) % 60);
-  return { hours, minutes, seconds };
-};
 
 const pad = (n: number) => (n < 10 ? `0${n}` : n);
 
 const displayTime = (ms: number) => {
-  const { hours, minutes, seconds } = toTime(ms);
+  const { hours, minutes, seconds } = msToTime(ms);
   return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
 };
 
