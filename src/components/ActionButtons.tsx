@@ -1,26 +1,49 @@
-import { Button } from "@/components/ui/Button.tsx";
 import { useCounter } from "@/hooks/useCounter.tsx";
-import { CounterActions } from "@/types.ts";
-import { Pause, Play, RotateCcw } from "lucide-react";
+import { CounterActions, CounterStatus } from "@/types.ts";
+import { Play, Pause, TimerResetIcon } from "lucide-react";
+import { useCallback } from "react";
 
 export const ActionButtons = () => {
   const { counter, dispatch } = useCounter();
 
-  const handleReset = () => {
+  const handlePause = useCallback(() => {
+    dispatch({ type: CounterActions.PAUSE });
+  }, []);
+
+  const handleReset = useCallback(() => {
     dispatch({ type: CounterActions.RESET, payload: { timeLeft: 1000 } });
-  };
+  }, []);
+  const handlePlay = useCallback(() => {
+    dispatch({ type: CounterActions.START });
+  }, []);
+
+  if (counter.status === CounterStatus.RUNNING) {
+    return (
+      <div className={"flex justify-center"}>
+        <div
+          className="hover: inline-flex cursor-pointer items-center rounded-full border-2 border-blue-700 p-8 text-center text-sm font-medium text-blue-700 hover:bg-blue-700 hover:text-white focus:outline-none focus:ring-4 focus:ring-blue-300 dark:border-blue-500 dark:text-blue-500 dark:hover:bg-blue-500 dark:hover:text-white dark:focus:ring-blue-800"
+          onClick={handlePause}
+        >
+          <Pause />
+        </div>
+        <div
+          className="hover: inline-flex cursor-pointer items-center rounded-full border-2 border-blue-700 p-8 text-center text-sm font-medium text-blue-700 hover:bg-blue-700 hover:text-white focus:outline-none focus:ring-4 focus:ring-blue-300 dark:border-blue-500 dark:text-blue-500 dark:hover:bg-blue-500 dark:hover:text-white dark:focus:ring-blue-800"
+          onClick={handleReset}
+        >
+          <TimerResetIcon />
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="row-auto space-x-5">
-      <Button icon={<Play className="mr-2 h-4 w-4" />} disabled={counter.status === "running"} variant="success" onClick={() => dispatch({ type: CounterActions.START })}>
-        Start
-      </Button>
-      <Button icon={<Pause className="mr-2 h-4 w-4" />} variant="outline" onClick={() => dispatch({ type: CounterActions.PAUSE })}>
-        Pause
-      </Button>
-      <Button icon={<RotateCcw className="mr-2 h-4 w-4" />} variant="error" onClick={handleReset}>
-        Reset
-      </Button>
+    <div className="flex justify-center">
+      <div
+        className="hover: inline-flex cursor-pointer items-center rounded-full border-2 border-blue-700 p-8 text-center text-sm font-medium text-blue-700 transition-all duration-75 ease-in hover:bg-blue-700 hover:text-white focus:outline-none focus:ring-4 focus:ring-blue-300 dark:border-blue-500 dark:text-blue-500 dark:hover:bg-blue-500 dark:hover:text-white dark:focus:ring-blue-800"
+        onClick={handlePlay}
+      >
+        <Play />
+      </div>
     </div>
   );
 };

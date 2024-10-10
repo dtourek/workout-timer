@@ -7,7 +7,7 @@ export enum CounterStatus {
 export enum CounterPhase {
   WORK = "work",
   REST = "rest",
-  PREPARE = "prepare", // TODO implement in counter
+  PREPARE = "prepare",
   IDLE = "idle",
   FINISHED = "finished",
 }
