@@ -11,7 +11,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { Form } from "../ui/Form.tsx";
 
-const fields: IField<number>[] = [
+const fields: IField[] = [
   { name: "rounds", type: "select", label: "Rounds", options: Array.from({ length: 99 }, (_, i) => ({ label: String(i + 1), value: i + 1 })) },
   {
     type: "object",

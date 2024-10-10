@@ -20,7 +20,7 @@ interface IOption<T> {
   value: T;
 }
 
-export interface ISelectField<T> {
+export interface ISelectField<T extends number = number> {
   type: "select";
   name: string;
   value?: T;
@@ -29,4 +29,4 @@ export interface ISelectField<T> {
   options: IOption<T>[];
 }
 
-export type IField<T extends string | number = string> = INumberField | IObjectField | ISelectField<T>;
+export type IField<T extends number = number> = INumberField | IObjectField | ISelectField<T>;

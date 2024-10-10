@@ -2,29 +2,32 @@ import { SelectField } from "@/components/set-time/SelectField.tsx";
 import { IField, INumberField, IObjectField, ISelectField } from "@/components/set-time/interface.ts";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/Form.tsx";
 import { Input } from "@/components/ui/Input.tsx";
+import { IFormValues } from "@/lib/model.ts";
 import { memo } from "react";
-import { FieldValues, Path, UseFormReturn } from "react-hook-form";
+import { UseFormReturn } from "react-hook-form";
 
 interface IFieldsProps {
   fields: IField[];
-  form: UseFormReturn;
+  form: UseFormReturn<IFormValues>;
 }
 
 const composeNestedFieldName = (parentName: IField["name"], fieldName: IField["name"]): string => [parentName, fieldName].join(".");
 const isObjectField = (field: IField): field is IObjectField => field.type === "object";
-const isSelectField = <T extends string = string>(field: IField): field is ISelectField<T> => field.type === "select";
+const isSelectField = (field: IField): field is ISelectField => field.type === "select";
 const isNumberField = (field: IField): field is INumberField => field.type === "number";
 
-const memiozedSelectField = <T,>(field: IField, value: T) => ({ ...field, value: value });
+const memiozedSelectField = (field: ISelectField, value: number): ISelectField => ({ ...field, value });
 
-const Field = memo(<T extends FieldValues>({ field, form }: { field: IField; form: UseFormReturn }) => {
+const Field = memo(({ field, form }: { field: IField; form: UseFormReturn<IFormValues> }) => {
+  const fieldName = field.name as keyof IFormValues;
+
   return (
     <FormField
-      key={field.name}
+      key={fieldName}
       control={form.control}
-      name={field.name as Path<T>}
+      name={fieldName}
       render={({ field: formField }) => (
-        <FormItem key={field.name}>
+        <FormItem key={fieldName}>
           {isSelectField(field) && (
             <>
               <FormControl>
