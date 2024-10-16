@@ -1,0 +1,20 @@
+name: CI
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ 22 ]
+    name: Node ${{ matrix.node }}
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup node
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node }}
+    - name: Install modules
+      run: yarn
+
+    - name: Checking the code - build, lint
+      run: yarn check
