@@ -15,3 +15,5 @@ export const colorByPhase = {
   [CounterPhase.FINISHED]: "#60e6a8",
   [CounterPhase.IDLE]: "#ffffff",
 };
+
+export const isCounterFinished = (phase: CounterPhase) => phase === CounterPhase.FINISHED;

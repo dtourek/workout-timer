@@ -9,7 +9,7 @@ interface ICounterContext {
 
 type StartCounter = { type: CounterActions.START };
 type PauseCounter = { type: CounterActions.PAUSE };
-type ResetCounter = { type: CounterActions.RESET; payload: { timeLeft: number } };
+type ResetCounter = { type: CounterActions.RESET };
 type TimeLeftCounter = { type: CounterActions.COUNT_TIME_LEFT };
 type SetCounter = { type: CounterActions.SET; payload: Partial<ICounter> };
 
@@ -31,7 +31,6 @@ const handleSwitchPhase = (state: ICounter): ICounter => {
 const handleTimeLeft = (state: ICounter): ICounter => {
   const hasTimeLeft = state.timeLeft > 0;
   if (!hasTimeLeft && state.rounds === 0 && state.phase === CounterPhase.REST) {
-    alert("All rounds completed");
     return { ...state, status: CounterStatus.IDLE, phase: CounterPhase.FINISHED };
   }
 

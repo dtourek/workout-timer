@@ -3,8 +3,9 @@ import { Button } from "@/components/ui/Button.tsx";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu.tsx";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip.tsx";
 import { Moon, Sun } from "lucide-react";
+import { memo } from "react";
 
-export function ModeToggle() {
+export const ModeToggle = memo(() => {
   const { setTheme } = useTheme();
 
   return (
@@ -30,4 +31,4 @@ export function ModeToggle() {
       </DropdownMenuContent>
     </DropdownMenu>
   );
-}
+});

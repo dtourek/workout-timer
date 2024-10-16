@@ -2,9 +2,9 @@ import { SetTimeForm } from "@/components/set-time/Form.tsx";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet.tsx";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip.tsx";
 import { Settings } from "lucide-react";
-import { useState } from "react";
+import { memo, useState } from "react";
 
-export const SetTimeDrawer = () => {
+export const SetTimeDrawer = memo(() => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -32,4 +32,4 @@ export const SetTimeDrawer = () => {
       </SheetContent>
     </Sheet>
   );
-};
+});

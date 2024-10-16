@@ -11,7 +11,7 @@ export const ActionButtons = () => {
   }, []);
 
   const handleReset = useCallback(() => {
-    dispatch({ type: CounterActions.RESET, payload: { timeLeft: 1000 } });
+    dispatch({ type: CounterActions.RESET });
   }, []);
   const handlePlay = useCallback(() => {
     dispatch({ type: CounterActions.START });
