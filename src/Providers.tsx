@@ -7,7 +7,7 @@ import React from "react";
 
 export const Providers: React.FC<PropsWithChildren> = ({ children }) => {
   return (
-    <ThemeProvider defaultTheme="system" storageKey="counter-theme">
+    <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
       <TooltipProvider>
         <CounterProvider initialData={initialData}>{children}</CounterProvider>
       </TooltipProvider>
