@@ -1,4 +1,5 @@
 import { useCounter } from "@/hooks/useCounter.tsx";
+import { useDimensions } from "@/hooks/useDimensions.ts";
 import { displayTime } from "@/lib/time.ts";
 import { colorByPhase } from "@/lib/utils.ts";
 import { CounterPhase } from "@/types.ts";
@@ -10,11 +11,12 @@ interface ICountdownProps {
 }
 
 export const Countdown = ({ secondsTotal, secondsRemaining, phase }: ICountdownProps) => {
+  const dimensions = useDimensions();
   const progressPercent = (secondsRemaining / secondsTotal) * 100;
-  const radiusCount = 240;
+  const width = Math.floor(Math.min(dimensions.width, dimensions.height) * 0.8);
+  const radiusCount = width / 2 - 10;
   const strokeDashArray = 2 * Math.PI * radiusCount;
   const strokeDashoffset = strokeDashArray * ((100 - progressPercent) / 100);
-  const width = 500;
   const { counter } = useCounter();
 
   return (
@@ -27,13 +29,12 @@ export const Countdown = ({ secondsTotal, secondsRemaining, phase }: ICountdownP
           textAnchor="middle"
           dominantBaseline="middle"
           fill="white"
-          fontSize="80px"
-          dy=".3em"
+          fontSize="4rem"
+          dy=".2em"
           style={{ transform: "rotate(90deg)", transformOrigin: "center" }}
         >
           {displayTime(counter.timeLeft)}
         </text>
-
         <circle
           r={radiusCount}
           cx={width / 2}
