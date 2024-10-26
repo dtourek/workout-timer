@@ -1,7 +1,7 @@
 import { CounterPhase, CounterStatus, ICounter } from "@/types.ts";
 
 export const initialData: ICounter = {
-  name: "Workout Timer",
+  name: "HIIT Workout",
   status: CounterStatus.IDLE,
   phase: CounterPhase.IDLE,
   rounds: 3,

@@ -28,13 +28,15 @@ const handleSwitchPhase = (state: ICounter): ICounter => {
   return state;
 };
 
+const hasTimeLeftRunOut = (counter: ICounter): boolean => counter.timeLeft < 0;
+const shouldCounterFinish = (counter: ICounter): boolean => hasTimeLeftRunOut(counter) && counter.rounds === 1 && counter.phase === CounterPhase.REST;
+
 const handleTimeLeft = (state: ICounter): ICounter => {
-  const hasTimeLeft = state.timeLeft > 0;
-  if (!hasTimeLeft && state.rounds === 0 && state.phase === CounterPhase.REST) {
+  if (shouldCounterFinish(state)) {
     return { ...state, status: CounterStatus.IDLE, phase: CounterPhase.FINISHED };
   }
 
-  if (!hasTimeLeft) {
+  if (hasTimeLeftRunOut(state)) {
     return handleSwitchPhase(state);
   }
 
