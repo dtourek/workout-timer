@@ -20,3 +20,6 @@ A simple workout timer for interval training. The timer is designed for high int
     - Name, description
 3. Save and load timer presets
 4. Save history of completed timers
+
+# Colors
+https://coolors.co/f6f9f7-292b2f-26282c-ff7400-ffffff
