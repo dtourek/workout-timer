@@ -32,7 +32,7 @@ const Body = memo(() => {
   const { counter, dispatch } = useCounter();
 
   return (
-    <div className={"flex h-full flex-col items-center justify-center bg-[#F6F9F7] dark:bg-[#26282C]"}>
+    <div className={"flex h-full flex-col items-center justify-around bg-[#F6F9F7] dark:bg-[#26282C]"}>
       <Counter />
       <ActionButtons />
       <Toaster />
