@@ -14,14 +14,15 @@ interface ICountdownProps {
 export const Countdown = ({ secondsTotal, secondsRemaining, phase }: ICountdownProps) => {
   const dimensions = useDimensions();
   const progressPercent = (secondsRemaining / secondsTotal) * 100;
-  const width = Math.floor(Math.min(dimensions.width, dimensions.height) * 0.8);
+  const width = Math.floor(Math.min(dimensions.width, dimensions.height) * (dimensions.isLandscape ? 0.6 : 0.8));
   const radiusCount = width / 2 - 10;
   const strokeDashArray = 2 * Math.PI * radiusCount;
   const strokeDashoffset = strokeDashArray * ((100 - progressPercent) / 100);
   const { counter } = useCounter();
   const { theme } = useTheme();
   const isLightTheme = theme === "light";
-  const color = isLightTheme ? "#42464C" : `white`;
+  const counterColor = isLightTheme ? "#42464C" : `white`;
+  const counterFontSize = dimensions.isLandscape ? "7vw" : "14vw";
 
   return (
     <>
@@ -34,7 +35,7 @@ export const Countdown = ({ secondsTotal, secondsRemaining, phase }: ICountdownP
           fill="#42464C"
           textAnchor="middle"
           dominantBaseline="middle"
-          fontSize="14vw"
+          fontSize={counterFontSize}
           style={{ transform: "rotate(90deg) scale(1, 1.3)", transformOrigin: "center" }}
         >
           {displayTime(counter.timeLeft)}
@@ -42,11 +43,10 @@ export const Countdown = ({ secondsTotal, secondsRemaining, phase }: ICountdownP
         <text
           className="font-bold uppercase dark:fill-white"
           x="50%"
-          y="50%"
+          y="65%"
           textAnchor="middle"
           dominantBaseline="middle"
           fontSize="1rem"
-          dy="3.5em"
           fill="#42464C"
           style={{ transform: "rotate(90deg)", transformOrigin: "center" }}
         >
@@ -57,7 +57,7 @@ export const Countdown = ({ secondsTotal, secondsRemaining, phase }: ICountdownP
           cx={width / 2}
           cy={width / 2}
           fill="transparent"
-          stroke={color}
+          stroke={counterColor}
           strokeWidth="5px"
           strokeDashoffset={strokeDashoffset}
           strokeDasharray={strokeDashArray}
