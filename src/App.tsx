@@ -29,7 +29,7 @@ const Title = () => {
   const { counter } = useCounter();
   return (
     <Meta name={counter.name}>
-      <h1 className="text-5xl text-primary">{counter.name}</h1>
+      <h1 className="py-2 text-5xl text-primary">{counter.name}</h1>
     </Meta>
   );
 };
@@ -37,12 +37,10 @@ const Title = () => {
 const Header = () => {
   return (
     <div>
-      <div className={"flex justify-between"}>
+      <div className={"flex items-center justify-between"}>
         <SetTimeDrawer />
-        <ModeToggle />
-      </div>
-      <div className="flex content-center justify-center p-4">
         <Title />
+        <ModeToggle />
       </div>
     </div>
   );
