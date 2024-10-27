@@ -4,14 +4,34 @@ import { ModeToggle } from "@/components/ModeToggle.tsx";
 import { SetTimeDrawer } from "@/components/SetTimeDrawer.tsx";
 import { Toaster } from "@/components/ui/sonner.tsx";
 import { useCounter } from "@/hooks/useCounter.tsx";
+import { appData } from "@/initialData.ts";
 import { isCounterFinished } from "@/lib/utils.ts";
 import { CounterActions } from "@/types.ts";
-import { memo, useCallback } from "react";
+import { memo, PropsWithChildren, useCallback } from "react";
+import { Helmet } from "react-helmet";
 import { Counter } from "./components/Counter";
+
+const Meta = memo(({ name, children }: { name: string } & PropsWithChildren) => {
+  return (
+    <>
+      <Helmet>
+        <title>
+          {appData.title} | {name}
+        </title>
+        <meta name="description" content={`Timer "${name}"`} />
+      </Helmet>
+      {children}
+    </>
+  );
+});
 
 const Title = () => {
   const { counter } = useCounter();
-  return <h1 className="text-5xl text-primary">{counter.name}</h1>;
+  return (
+    <Meta name={counter.name}>
+      <h1 className="text-5xl text-primary">{counter.name}</h1>
+    </Meta>
+  );
 };
 
 const Header = () => {

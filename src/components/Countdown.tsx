@@ -22,6 +22,7 @@ export const Countdown = ({ secondsTotal, secondsRemaining, phase }: ICountdownP
   const { theme } = useTheme();
   const isLightTheme = theme === "light";
   const color = isLightTheme ? "#42464C" : `white`;
+  const fontSize = dimensions.width > dimensions.height ? "9vw" : "14vw";
 
   return (
     <>
@@ -34,7 +35,7 @@ export const Countdown = ({ secondsTotal, secondsRemaining, phase }: ICountdownP
           fill="#42464C"
           textAnchor="middle"
           dominantBaseline="middle"
-          fontSize="14vw"
+          fontSize={fontSize}
           style={{ transform: "rotate(90deg) scale(1, 1.3)", transformOrigin: "center" }}
         >
           {displayTime(counter.timeLeft)}
@@ -42,11 +43,10 @@ export const Countdown = ({ secondsTotal, secondsRemaining, phase }: ICountdownP
         <text
           className="font-bold uppercase dark:fill-white"
           x="50%"
-          y="50%"
+          y="65%"
           textAnchor="middle"
           dominantBaseline="middle"
           fontSize="1rem"
-          dy="3.5em"
           fill="#42464C"
           style={{ transform: "rotate(90deg)", transformOrigin: "center" }}
         >

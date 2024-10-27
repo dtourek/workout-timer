@@ -1,5 +1,13 @@
 import { CounterPhase, CounterStatus, ICounter } from "@/types.ts";
 
+interface IAppData {
+  title: string;
+}
+
+export const appData: IAppData = {
+  title: "Simple Timer",
+};
+
 export const initialData: ICounter = {
   name: "HIIT Workout",
   status: CounterStatus.IDLE,

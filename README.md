@@ -8,6 +8,9 @@ The timer is designed to be simple and easy to use and ready for any web browser
 1. `yarn`
 2. `yarn dev`
 
+# Live demo
+https://workout-timer-five.vercel.app/
+
 ## Features
 1. Start, pause and stop current timer
     - Show time left
@@ -28,6 +31,7 @@ The timer is designed to be simple and easy to use and ready for any web browser
 https://coolors.co/f6f9f7-292b2f-26282c-ff7400-ffffff
 
 # TODO
+- [ ] Add meta tags (title)
 - [ ] Add sounds when timer is: done, paused, resumed, stopped
 - [ ] Add timer presets, e.g. HIIT, Tabata, Pomodoro
 - [ ] Add multiple timers to be defined 
