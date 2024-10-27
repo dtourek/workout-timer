@@ -1,5 +1,5 @@
 import { SelectField } from "@/components/set-time/SelectField.tsx";
-import { IField, INumberField, IObjectField, ISelectField } from "@/components/set-time/interface.ts";
+import { IField, INumberField, IObjectField, ISelectField, ITextField } from "@/components/set-time/interface.ts";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/Form.tsx";
 import { Input } from "@/components/ui/Input.tsx";
 import { IFormValues } from "@/lib/model.ts";
@@ -15,8 +15,9 @@ const composeNestedFieldName = (parentName: IField["name"], fieldName: IField["n
 const isObjectField = (field: IField): field is IObjectField => field.type === "object";
 const isSelectField = (field: IField): field is ISelectField => field.type === "select";
 const isNumberField = (field: IField): field is INumberField => field.type === "number";
+const isTextField = (field: IField): field is ITextField => field.type === "text";
 
-const memiozedSelectField = (field: ISelectField, value: number): ISelectField => ({ ...field, value });
+const memoizedSelectField = (field: ISelectField, value: ISelectField["value"]): ISelectField => ({ ...field, value });
 
 const Field = memo(({ field, form }: { field: IField; form: UseFormReturn<IFormValues> }) => {
   const fieldName = field.name as keyof IFormValues;
@@ -31,18 +32,19 @@ const Field = memo(({ field, form }: { field: IField; form: UseFormReturn<IFormV
           {isSelectField(field) && (
             <>
               <FormControl>
-                <SelectField field={memiozedSelectField(field, formField.value)} form={form} />
+                <SelectField field={memoizedSelectField(field, formField.value)} form={form} />
               </FormControl>
             </>
           )}
-          {isNumberField(field) && (
-            <>
-              <FormLabel>{field.label}</FormLabel>
-              <FormControl>
-                <Input {...formField} {...field} min={field.min} max={field.max} />
-              </FormControl>
-            </>
-          )}
+          {isNumberField(field) ||
+            (isTextField(field) && (
+              <>
+                <FormLabel>{field.label}</FormLabel>
+                <FormControl>
+                  <Input {...formField} {...field} />
+                </FormControl>
+              </>
+            ))}
           <FormMessage />
         </FormItem>
       )}

@@ -5,6 +5,7 @@ const minutes = z.coerce.number({ invalid_type_error: "Hours should be number" }
 const seconds = z.coerce.number({ invalid_type_error: "Seconds should be number", required_error: "Minutes are required" }).min(0).max(59);
 
 export const formSchema = z.object({
+  name: z.string(),
   rounds: z.number().int().min(1).max(100),
   "prepare-hours": hours,
   "prepare-minutes": minutes,

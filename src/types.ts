@@ -12,8 +12,6 @@ export enum CounterPhase {
   FINISHED = "finished",
 }
 
-export type IEditablePhases = CounterPhase.WORK | CounterPhase.REST | CounterPhase.PREPARE;
-
 export interface ICounter {
   name: string;
   status: CounterStatus;
@@ -30,6 +28,5 @@ export enum CounterActions {
   PAUSE = "PAUSE",
   RESET = "RESET",
   COUNT_TIME_LEFT = "COUNT_TIME_LEFT", // Action to decrement the time left
-  SWITCH_PHASE = "SWITCH_PHASE", // Action to switch the phase
   SET = "SET",
 }
