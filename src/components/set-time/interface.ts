@@ -1,3 +1,11 @@
+export interface ITextField {
+  name: string;
+  type: "text";
+  value?: string;
+  label: string;
+  placeholder?: string;
+}
+
 export interface INumberField {
   name: string;
   type: "number";
@@ -15,18 +23,20 @@ export interface IObjectField {
   fields: IField[];
 }
 
-interface IOption<T> {
+type ISelectValue = string | number;
+
+interface IOption {
   label: string;
-  value: T;
+  value: ISelectValue;
 }
 
-export interface ISelectField<T extends number = number> {
+export interface ISelectField {
   type: "select";
   name: string;
-  value?: T;
+  value?: ISelectValue;
   label: string;
   placeholder?: string;
-  options: IOption<T>[];
+  options: IOption[];
 }
 
-export type IField<T extends number = number> = INumberField | IObjectField | ISelectField<T>;
+export type IField = ITextField | INumberField | IObjectField | ISelectField;

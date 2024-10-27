@@ -12,6 +12,7 @@ import { toast } from "sonner";
 import { Form } from "../ui/Form.tsx";
 
 const fields: IField[] = [
+  { name: "name", type: "text", label: "Workout name", placeholder: "Name a time" },
   { name: "rounds", type: "select", label: "Rounds", options: Array.from({ length: 99 }, (_, i) => ({ label: String(i + 1), value: i + 1 })) },
   {
     type: "object",
@@ -61,6 +62,7 @@ const getFieldValues = (counter: ICounter): IFormValues => {
   const restTime = msToTime(counter.restTime);
   return {
     rounds: counter.rounds,
+    name: counter.name,
     ...prefixKeys(CounterPhase.PREPARE, prepareTime),
     ...prefixKeys(CounterPhase.WORK, workTime),
     ...prefixKeys(CounterPhase.REST, restTime),
@@ -88,6 +90,7 @@ export const SetTimeForm = memo(({ handleSubmit }: ISetTimeFormProps) => {
       dispatch({
         type: CounterActions.SET,
         payload: {
+          name: values.name,
           rounds: values.rounds,
           prepareTime: prepareTimeLeft,
           workTime: toTimeLeft(values["work-hours"], values["work-minutes"], values["work-seconds"]),
@@ -95,7 +98,7 @@ export const SetTimeForm = memo(({ handleSubmit }: ISetTimeFormProps) => {
           timeLeft: prepareTimeLeft,
         },
       });
-      toast.success("Time set");
+      toast.success(`Timer "${values.name}" has been set, it's ready to start!`);
       handleSubmit();
     },
     [form.formState],
@@ -106,12 +109,14 @@ export const SetTimeForm = memo(({ handleSubmit }: ISetTimeFormProps) => {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <>
           <Fields fields={fields} form={form} />
-          <Button type="submit" disabled={form.formState.isSubmitting}>
-            Set
-          </Button>
-          <Button type="reset" disabled={form.formState.isSubmitting}>
-            Reset
-          </Button>
+          <div className="flex justify-end gap-5">
+            <Button type="reset" disabled={form.formState.isSubmitting} variant="secondary">
+              Reset
+            </Button>
+            <Button type="submit" disabled={form.formState.isSubmitting}>
+              Set
+            </Button>
+          </div>
         </>
       </form>
     </Form>

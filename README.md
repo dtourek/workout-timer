@@ -1,5 +1,8 @@
 # workout-timer
-A simple workout timer for interval training. The timer is designed for high intensity interval training (HIIT) and tabata training. The timer is designed to be simple and easy to use. The timer is designed to be used in a web browser.
+A simple workout timer for any interval purpose. 
+The timer could be used e.g. for high intensity interval training (HIIT) and tabata training. 
+
+The timer is designed to be simple and easy to use and ready for any web browser.
 
 ## Installation
 1. `yarn`
@@ -23,3 +26,22 @@ A simple workout timer for interval training. The timer is designed for high int
 
 # Colors
 https://coolors.co/f6f9f7-292b2f-26282c-ff7400-ffffff
+
+# TODO
+- [ ] Add sounds when timer is: done, paused, resumed, stopped
+- [ ] Add timer presets, e.g. HIIT, Tabata, Pomodoro
+- [ ] Add multiple timers to be defined 
+- [ ] User settings in local storage:
+  - [ ] Save user preferred settings, persist it in local storage
+  - [ ] Load user preferred settings from local storage
+  - [ ] Save timer history in local storage
+- [ ] Add tests
+- [ ] Add analytics
+- [ ] Add error handling
+- [ ] Add user feedback
+
+# Future
+- [ ] Make it mobile app with react native
+- [ ] Publish it to App Store
+- [ ] Publish it to Google Play store
+- [ ] Make it desktop app with electron
