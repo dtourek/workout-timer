@@ -34,9 +34,8 @@ export const Countdown = ({ secondsTotal, secondsRemaining, phase }: ICountdownP
           fill="#42464C"
           textAnchor="middle"
           dominantBaseline="middle"
-          fontSize="4rem"
-          dy=".2em"
-          style={{ transform: "rotate(90deg)", transformOrigin: "center" }}
+          fontSize="14vw"
+          style={{ transform: "rotate(90deg) scale(1, 1.3)", transformOrigin: "center" }}
         >
           {displayTime(counter.timeLeft)}
         </text>
