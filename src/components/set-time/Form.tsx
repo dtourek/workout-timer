@@ -98,7 +98,7 @@ export const SetTimeForm = memo(({ handleSubmit }: ISetTimeFormProps) => {
           timeLeft: prepareTimeLeft,
         },
       });
-      toast.success("Timer set, ready to start");
+      toast.success(`Timer "${values.name}" has been set, it's ready to start!`);
       handleSubmit();
     },
     [form.formState],
