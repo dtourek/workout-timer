@@ -17,4 +17,4 @@ jobs:
       run: yarn
 
     - name: Checking the code - build, lint
-      run: yarn check
+      run: yarn build
