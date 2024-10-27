@@ -38,6 +38,7 @@ https://coolors.co/f6f9f7-292b2f-26282c-ff7400-ffffff
 - [ ] Add tests
 - [ ] Add analytics
 - [ ] Add error handling
+- [ ] Add user feedback
 
 # Future
 - [ ] Make it mobile app with react native
