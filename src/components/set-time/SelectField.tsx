@@ -6,7 +6,7 @@ import { memo } from "react";
 import { UseFormReturn } from "react-hook-form";
 
 interface ISelectProps {
-  field: ISelectField<number>;
+  field: ISelectField;
   form: UseFormReturn<IFormValues>;
 }
 
