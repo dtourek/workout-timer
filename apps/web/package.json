@@ -5,11 +5,12 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "check": "yarn lint && yarn build && echo 'Check complete. All good!'",
+    "check": "yarn format && yarn lint && yarn build && echo 'Check complete. All good!'",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
+    "format": "prettier --write .",
     "preview": "vite preview"
   },
   "dependencies": {
