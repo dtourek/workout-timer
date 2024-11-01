@@ -23,8 +23,8 @@ export const Counter = memo(() => {
 
   return (
     <div>
-      <Countdown secondsRemaining={counter.timeLeft / 100} secondsTotal={secondsTotalInPhase} phase={counter.phase} />
-      <RoundsLeft rounds={counter.rounds} phase={counter.phase} />
+      <Countdown secondsRemaining={counter.counter.timeLeft / 100} secondsTotal={secondsTotalInPhase} phase={counter.phase} />
+      <RoundsLeft rounds={counter.counter.rounds} phase={counter.phase} />
     </div>
   );
 });

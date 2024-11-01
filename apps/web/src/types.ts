@@ -12,15 +12,15 @@ export enum CounterPhase {
   FINISHED = "finished",
 }
 
+type ICounterSettings = { rounds: number; workTime: number; restTime: number; prepareTime: number };
+type ICounterTimeLeft = ICounterSettings & { timeLeft: number };
+
 export interface ICounter {
   name: string;
   status: CounterStatus;
   phase: CounterPhase;
-  rounds: number;
-  workTime: number;
-  restTime: number;
-  prepareTime: number;
-  timeLeft: number;
+  settings: ICounterSettings;
+  counter: ICounterTimeLeft;
 }
 
 export enum CounterActions {

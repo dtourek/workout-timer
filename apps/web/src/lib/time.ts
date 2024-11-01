@@ -16,13 +16,13 @@ export const displayTime = (ms: number) => {
 
 export const phaseSeconds = (counter: ICounter) => {
   if (counter.phase === "prepare") {
-    return counter.prepareTime / 100;
+    return counter.counter.prepareTime / 100;
   }
   if (counter.phase === "work") {
-    return counter.workTime / 100;
+    return counter.counter.workTime / 100;
   }
   if (counter.phase === "rest") {
-    return counter.restTime / 100;
+    return counter.counter.restTime / 100;
   }
   return 0;
 };
