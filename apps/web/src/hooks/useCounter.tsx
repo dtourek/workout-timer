@@ -1,4 +1,3 @@
-import { initialData } from "@/initialData.ts";
 import { CounterActions, CounterPhase, CounterStatus, ICounter } from "@/types.ts";
 import { createContext, PropsWithChildren, Reducer, useContext, useReducer } from "react";
 
@@ -17,35 +16,35 @@ type ICounterActions = StartCounter | PauseCounter | ResetCounter | TimeLeftCoun
 
 const handleSwitchPhase = (state: ICounter): ICounter => {
   if (state.phase === CounterPhase.PREPARE) {
-    return { ...state, phase: CounterPhase.WORK, timeLeft: state.workTime };
+    return { ...state, phase: CounterPhase.WORK, counter: { ...state.counter, timeLeft: state.counter.workTime } };
   }
   if (state.phase === CounterPhase.WORK) {
-    return { ...state, phase: CounterPhase.REST, timeLeft: state.restTime };
+    return { ...state, phase: CounterPhase.REST, counter: { ...state.counter, timeLeft: state.counter.restTime } };
   }
   if (state.phase === CounterPhase.REST) {
-    return { ...state, phase: CounterPhase.WORK, timeLeft: state.workTime, rounds: state.rounds - 1 };
+    return { ...state, phase: CounterPhase.WORK, counter: { ...state.counter, timeLeft: state.counter.workTime, rounds: state.counter.rounds - 1 } };
   }
   return state;
 };
 
-const hasTimeLeftRunOut = (counter: ICounter): boolean => counter.timeLeft < 0;
-const shouldCounterFinish = (counter: ICounter): boolean => hasTimeLeftRunOut(counter) && counter.rounds === 1 && counter.phase === CounterPhase.REST;
+const hasTimeLeftRunOut = (counter: ICounter): boolean => counter.counter.timeLeft < 0;
+const shouldCounterFinish = (counter: ICounter): boolean => hasTimeLeftRunOut(counter) && counter.counter.rounds === 1 && counter.phase === CounterPhase.REST;
 
 const handleTimeLeft = (state: ICounter): ICounter => {
   if (shouldCounterFinish(state)) {
-    return { ...state, status: CounterStatus.IDLE, phase: CounterPhase.FINISHED };
+    return { ...state, status: CounterStatus.IDLE, phase: CounterPhase.FINISHED, counter: { ...state.settings, timeLeft: 0 } };
   }
 
   if (hasTimeLeftRunOut(state)) {
     return handleSwitchPhase(state);
   }
 
-  return { ...state, timeLeft: state.timeLeft - 1, status: CounterStatus.RUNNING };
+  return { ...state, status: CounterStatus.RUNNING, counter: { ...state.counter, timeLeft: state.counter.timeLeft - 1 } };
 };
 
-const startOrResume = (state: ICounter): Pick<ICounter, "phase" | "timeLeft"> => {
+const startOrResume = (state: ICounter): { timeLeft: ICounter["counter"]["timeLeft"]; phase: ICounter["phase"] } => {
   const isPaused = state.status === CounterStatus.PAUSED;
-  const timeLeft = isPaused ? state.timeLeft : state.prepareTime;
+  const timeLeft = isPaused ? state.counter.timeLeft : state.counter.prepareTime;
   const phase = isPaused ? state.phase : CounterPhase.PREPARE;
   return { timeLeft, phase };
 };
@@ -57,7 +56,7 @@ const counterReducer: Reducer<ICounter, ICounterActions> = (state, action) => {
     case CounterActions.PAUSE:
       return state.status === CounterStatus.RUNNING ? { ...state, status: CounterStatus.PAUSED } : state;
     case CounterActions.RESET:
-      return { ...state, status: CounterStatus.IDLE, timeLeft: initialData.prepareTime, phase: CounterPhase.IDLE, rounds: initialData.rounds };
+      return { ...state, counter: { ...state.settings, timeLeft: state.settings.prepareTime }, status: CounterStatus.IDLE, phase: CounterPhase.IDLE };
     case CounterActions.COUNT_TIME_LEFT:
       return handleTimeLeft(state);
     case CounterActions.SET:

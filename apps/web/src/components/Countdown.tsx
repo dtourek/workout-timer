@@ -38,7 +38,7 @@ export const Countdown = ({ secondsTotal, secondsRemaining, phase }: ICountdownP
           fontSize={counterFontSize}
           style={{ transform: "rotate(90deg) scale(1, 1.3)", transformOrigin: "center" }}
         >
-          {displayTime(counter.timeLeft)}
+          {displayTime(counter.counter.timeLeft)}
         </text>
         <text
           className="font-bold uppercase dark:fill-white"

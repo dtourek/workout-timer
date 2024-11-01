@@ -57,11 +57,11 @@ const prefixKeys = (prefix: string, obj: Record<string, number>) => {
 };
 
 const getFieldValues = (counter: ICounter): IFormValues => {
-  const prepareTime = msToTime(counter.prepareTime);
-  const workTime = msToTime(counter.workTime);
-  const restTime = msToTime(counter.restTime);
+  const prepareTime = msToTime(counter.settings.prepareTime);
+  const workTime = msToTime(counter.settings.workTime);
+  const restTime = msToTime(counter.settings.restTime);
   return {
-    rounds: counter.rounds,
+    rounds: counter.counter.rounds,
     name: counter.name,
     ...prefixKeys(CounterPhase.PREPARE, prepareTime),
     ...prefixKeys(CounterPhase.WORK, workTime),
@@ -86,22 +86,18 @@ export const SetTimeForm = memo(({ handleSubmit }: ISetTimeFormProps) => {
   const onSubmit = useCallback(
     (values: IFormValues) => {
       const prepareTimeLeft = toTimeLeft(values["prepare-hours"], values["prepare-minutes"], values["prepare-seconds"]);
+      const settings = {
+        rounds: values.rounds,
+        prepareTime: prepareTimeLeft,
+        workTime: toTimeLeft(values["work-hours"], values["work-minutes"], values["work-seconds"]),
+        restTime: toTimeLeft(values["rest-hours"], values["rest-minutes"], values["rest-seconds"]),
+      };
 
-      dispatch({
-        type: CounterActions.SET,
-        payload: {
-          name: values.name,
-          rounds: values.rounds,
-          prepareTime: prepareTimeLeft,
-          workTime: toTimeLeft(values["work-hours"], values["work-minutes"], values["work-seconds"]),
-          restTime: toTimeLeft(values["rest-hours"], values["rest-minutes"], values["rest-seconds"]),
-          timeLeft: prepareTimeLeft,
-        },
-      });
+      dispatch({ type: CounterActions.SET, payload: { name: values.name, settings, counter: { ...settings, timeLeft: prepareTimeLeft } } });
       toast.success(`Timer "${values.name}" has been set, it's ready to start!`);
       handleSubmit();
     },
-    [form.formState],
+    [handleSubmit, dispatch],
   );
 
   return (
