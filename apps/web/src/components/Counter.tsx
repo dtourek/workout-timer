@@ -1,9 +1,7 @@
 import { Countdown } from "@/components/Countdown.tsx";
-import { useCounter } from "@/hooks/useCounter.tsx";
-import { useInterval } from "@/hooks/useInterval.ts";
 import { phaseSeconds } from "@/lib/time.ts";
-import { CounterActions, CounterPhase } from "@/types.ts";
 import { memo } from "react";
+import { CounterActions, CounterPhase, useCounter, useInterval } from "shared";
 
 const RoundsLeft = memo(({ rounds, phase }: { rounds: number; phase: CounterPhase }) => (
   <div className="flex justify-between py-10">

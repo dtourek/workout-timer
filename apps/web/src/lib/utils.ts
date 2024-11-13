@@ -1,4 +1,4 @@
-import { CounterPhase } from "@/types.ts";
+import { CounterPhase } from "shared";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 

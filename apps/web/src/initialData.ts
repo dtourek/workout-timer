@@ -1,4 +1,4 @@
-import { CounterPhase, CounterStatus, ICounter } from "@/types.ts";
+import { CounterPhase, CounterStatus, ICounter } from "shared";
 
 interface IAppData {
   title: string;

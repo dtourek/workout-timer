@@ -4,10 +4,9 @@ import { formSchema, IFormValues } from "@/lib/model.ts";
 import { msToTime } from "@/lib/time.ts";
 import { memo, useCallback } from "react";
 import { Button } from "@/components/ui/Button.tsx";
-import { useCounter } from "@/hooks/useCounter.tsx";
-import { CounterActions, CounterPhase, ICounter } from "@/types.ts";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { CounterActions, CounterPhase, ICounter, useCounter } from "shared";
 import { toast } from "sonner";
 import { Form } from "../ui/Form.tsx";
 

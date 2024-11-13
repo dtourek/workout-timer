@@ -1,4 +1,4 @@
-import { ICounter } from "@/types.ts";
+import { ICounter } from "shared";
 
 export const msToTime = (ms: number) => {
   const hours = Math.floor(ms / 100 / 60 / 60);

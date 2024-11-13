@@ -1,9 +1,8 @@
 import { useTheme } from "@/components/ThemeProvider.tsx";
-import { useCounter } from "@/hooks/useCounter.tsx";
 import { useDimensions } from "@/hooks/useDimensions.ts";
 import { displayTime } from "@/lib/time.ts";
 import { colorByPhase } from "@/lib/utils.ts";
-import { CounterPhase } from "@/types.ts";
+import { CounterPhase, useCounter } from "shared";
 
 interface ICountdownProps {
   secondsTotal: number;

@@ -1,6 +1,6 @@
 import { ThemeProvider } from "@/components/ThemeProvider.tsx";
 import { TooltipProvider } from "@/components/ui/tooltip.tsx";
-import { CounterProvider } from "@/hooks/useCounter.tsx";
+import { CounterProvider } from "shared";
 import { initialData } from "@/initialData.ts";
 import { PropsWithChildren } from "react";
 import React from "react";

@@ -1,5 +1,5 @@
-import { CounterStatus } from "@/types.ts";
 import { useEffect } from "react";
+import { CounterStatus } from "../types";
 
 export const useInterval = (ms: number, status: CounterStatus, fn: () => void) => {
   useEffect(() => {
