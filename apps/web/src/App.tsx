@@ -3,12 +3,11 @@ import { Modal } from "@/components/Modal.tsx";
 import { ModeToggle } from "@/components/ModeToggle.tsx";
 import { SetTimeDrawer } from "@/components/SetTimeDrawer.tsx";
 import { Toaster } from "@/components/ui/sonner.tsx";
-import { useCounter } from "@/hooks/useCounter.tsx";
 import { appData } from "@/initialData.ts";
 import { isCounterFinished } from "@/lib/utils.ts";
-import { CounterActions } from "@/types.ts";
 import { memo, PropsWithChildren, useCallback } from "react";
 import { Helmet } from "react-helmet";
+import { CounterActions, useCounter } from "shared";
 import { Counter } from "./components/Counter.tsx";
 
 const Meta = memo(({ name, children }: { name: string } & PropsWithChildren) => {

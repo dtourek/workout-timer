@@ -1,7 +1,6 @@
-import { useCounter } from "@/hooks/useCounter.tsx";
-import { CounterActions, CounterStatus } from "@/types.ts";
 import { Pause, Play, TimerResetIcon } from "lucide-react";
 import { useCallback } from "react";
+import { CounterActions, CounterStatus, useCounter } from "shared";
 
 export const ActionButtons = () => {
   const { counter, dispatch } = useCounter();

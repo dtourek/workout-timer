@@ -1,4 +1,5 @@
-import { CounterActions, CounterPhase, CounterStatus, ICounter } from "@/types.ts";
+import React from "react";
+import { CounterActions, CounterPhase, CounterStatus, ICounter } from "../types";
 import { createContext, PropsWithChildren, Reducer, useContext, useReducer } from "react";
 
 interface ICounterContext {
